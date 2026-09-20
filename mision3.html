@@ -5,6 +5,10 @@
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <title>Juguemos a un CLIC | Misión 03 - Detective del Ciberacoso</title>
 <meta name="description" content="Juego educativo sobre tipos de ciberacoso.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@400;500;600;700&family=Nunito:wght@400;700;800;900&display=swap" rel="stylesheet">
+
 <style>
 :root{
   --ink:#17324b; --muted:#6c7f91; --blue:#126fe8; --blue2:#30b8f4;
@@ -278,6 +282,341 @@ html, body { width:100%; overflow-x:hidden; }
   .targets{padding-bottom:76px;gap:4px}.target{padding:5px 3px;min-height:59px}.target .lab{font-size:10.7px}.target .ico{font-size:21px}
   .challenge:after{height:64px;left:6px;right:6px}
   .draggable{width:66px;height:66px}.draggable img{width:62px;height:62px}
+}
+</style>
+
+
+<style id="mobile-space-clic-final">
+/* ===== ESPACIO EXTRA PARA CLIC · RESPUESTAS SEPARADAS ===== */
+@media (max-width:720px){
+  .challenge{
+    padding:8px 9px 4px;
+  }
+  .challenge-title{
+    font-size:13.4px;
+    margin:0 0 8px;
+  }
+  .targets{
+    grid-template-columns:repeat(2,minmax(0,1fr));
+    grid-template-rows:repeat(3,minmax(0,1fr));
+    gap:11px 10px;
+    padding:0 0 98px;
+    align-content:stretch;
+  }
+  .target{
+    min-height:68px;
+    border-radius:14px;
+    padding:8px 7px;
+  }
+  .target:last-child{
+    grid-column:1 / -1;
+  }
+  .target .ico{font-size:25px;margin-bottom:4px}
+  .target .lab{font-size:12px;line-height:1.12}
+
+  /* Zona independiente de CLIC: no se confunde con ninguna respuesta */
+  .challenge:after{
+    left:9px;right:9px;bottom:2px;height:88px;
+    border-radius:17px;border-width:2px;
+    padding-top:7px;font-size:10.5px;
+    letter-spacing:.045em;
+    background:linear-gradient(180deg,#edf9ff,#dff2ff);
+  }
+  .draggable{
+    width:82px;height:82px;
+    bottom:4px;
+    border-radius:22px;
+    z-index:9;
+  }
+  .draggable img{width:77px;height:77px}
+  .draggable.dragging{transform:translateX(-50%) scale(1.08);z-index:15}
+}
+
+@media (max-width:390px){
+  .target{min-height:64px}
+  .target .lab{font-size:11.5px}
+  .target .ico{font-size:23px}
+  .draggable{width:76px;height:76px}
+  .draggable img{width:71px;height:71px}
+}
+
+@media (max-width:349px){
+  .targets{gap:9px 8px;padding-bottom:92px}
+  .target{min-height:59px;padding:7px 5px}
+  .target .lab{font-size:10.6px}
+  .target .ico{font-size:21px}
+  .challenge:after{height:82px;font-size:9.7px}
+  .draggable{width:68px;height:68px}
+  .draggable img{width:63px;height:63px}
+}
+</style>
+
+<style id="g3-visual-maqueta-v4">
+/* ===== EVOLUCIÓN VISUAL · MISIÓN 03 — MISMA FAMILIA DE LAS MISIONES 01 Y 02 ===== */
+:root{
+  --font-display:'Fredoka','Segoe UI',system-ui,sans-serif;
+  --font-body:'Nunito','Segoe UI',system-ui,-apple-system,Roboto,Arial,sans-serif;
+  --ink:#16294a;
+  --ink-soft:#4a6180;
+  --primary:#2457d6;
+  --primary-deep:#153a9e;
+  --cyan:#0ea5e9;
+  --violet:#7357d7;
+  --good:#16a34a;
+  --bad:#dc2626;
+  --amber:#f59e0b;
+}
+body{font-family:var(--font-body);}
+
+/* Panel general con el mismo acabado de videojuego de M1/M2 */
+.panel{
+  background:rgba(255,255,255,.98);
+  border-radius:30px;
+  box-shadow:0 26px 60px rgba(3,10,30,.50),0 0 0 1px rgba(255,255,255,.60);
+}
+.screen.active{animation:g3ScreenIn .48s cubic-bezier(.22,1,.36,1)}
+
+/* INTRO — más editorial, más vivo, sin cambiar la mecánica */
+.start{
+  background:
+    radial-gradient(420px 220px at 8% 15%,rgba(14,165,233,.13),transparent 70%),
+    radial-gradient(380px 260px at 92% 88%,rgba(115,87,215,.11),transparent 70%),
+    linear-gradient(180deg,#ffffff 0%,#f7fbff 58%,#eef6ff 100%);
+  position:relative;isolation:isolate;
+}
+.start::before{
+  content:"";position:absolute;inset:0;z-index:-1;opacity:.45;pointer-events:none;
+  background-image:radial-gradient(#cfe5ff 1px,transparent 1px);
+  background-size:22px 22px;
+  mask-image:linear-gradient(90deg,#000 0 38%,transparent 72%);
+}
+.start-grid{max-width:900px;gap:30px}
+.start-copy{padding:12px 8px}
+.eyebrow{
+  display:inline-flex;align-items:center;gap:8px;
+  color:#1d65c1;font-family:var(--font-display);font-size:12px;font-weight:600;
+  letter-spacing:.09em;background:#eaf5ff;border:1px solid #cbe5ff;
+  padding:7px 12px;border-radius:999px;box-shadow:0 4px 10px rgba(36,87,214,.08)
+}
+.eyebrow::before{content:"🔎";font-size:14px}
+.start h2{
+  font-family:var(--font-display);font-weight:700;color:#16307d;
+  font-size:clamp(30px,4vw,40px);line-height:1.05;letter-spacing:-.01em;
+  margin:12px 0 10px;max-width:580px
+}
+.start p{color:#405b79;font-size:16px;font-weight:700;line-height:1.6;max-width:590px}
+.instruction{
+  margin-top:18px;max-width:590px;padding:15px 17px;border:2px dashed #afd3f5;border-radius:20px;
+  background:linear-gradient(180deg,#f8fcff,#eef7ff);color:#2f587d;
+  box-shadow:0 7px 18px rgba(22,74,133,.08),inset 0 1px 0 #fff;
+}
+.clic-hero{
+  min-height:350px;height:380px;position:relative;overflow:visible;
+}
+.clic-hero::before{
+  content:"";position:absolute;left:50%;top:43%;width:270px;height:270px;transform:translate(-50%,-50%);
+  border-radius:50%;background:radial-gradient(circle,rgba(34,211,238,.25),rgba(34,211,238,0) 69%);
+  filter:blur(1px);animation:g3HeroPulse 3s ease-in-out infinite;z-index:0;
+}
+.clic-hero::after{
+  content:"PISTA DIGITAL";position:absolute;top:4%;right:4%;z-index:4;
+  padding:8px 13px;border-radius:999px;color:#fff;background:linear-gradient(135deg,#5b45c2,#2457d6);
+  font-family:var(--font-display);font-size:12px;font-weight:600;letter-spacing:.08em;
+  box-shadow:0 8px 18px rgba(83,63,181,.25)
+}
+@keyframes g3HeroPulse{0%,100%{transform:translate(-50%,-50%) scale(1);opacity:.75}50%{transform:translate(-50%,-50%) scale(1.12);opacity:1}}
+.clic-hero img{position:relative;z-index:2;filter:drop-shadow(0 22px 22px rgba(16,38,92,.28));animation:g3HeroFloat 3.7s ease-in-out infinite}
+@keyframes g3HeroFloat{0%,100%{transform:translateY(0) rotate(-1deg)}50%{transform:translateY(-10px) rotate(1deg)}}
+
+/* HUD */
+.mission{
+  padding:18px 20px 22px;
+  background:
+    radial-gradient(560px 220px at 100% 0%,rgba(56,189,248,.10),transparent 65%),
+    linear-gradient(180deg,#fbfdff 0%,#f5faff 100%);
+}
+.hud{
+  padding:2px 2px 0;margin-bottom:10px;
+  font-family:var(--font-display);font-weight:600;letter-spacing:.03em
+}
+.hud .round,.score{font-family:var(--font-display)}
+.hud .round{color:#2159c7}.score{color:#6954d7}
+.progress{
+  height:15px;background:#e3ebf7;border-radius:999px;overflow:hidden;margin:7px 0 17px;
+  box-shadow:inset 0 2px 5px rgba(20,40,80,.15),0 1px 0 #fff
+}
+.progress i{
+  background:linear-gradient(90deg,#2457d6,#0ea5e9 55%,#22d3ee);
+  box-shadow:0 0 17px rgba(14,165,233,.48)
+}
+
+/* Expediente */
+.case{
+  border:2px solid #dbe7f7;border-radius:26px;
+  box-shadow:0 14px 36px rgba(23,49,110,.10),0 3px 0 #e7effa;
+  background:#fff;position:relative;overflow:hidden;
+}
+.case::before{
+  content:"";position:absolute;right:-28px;top:-35px;width:155px;height:155px;border-radius:50%;
+  background:radial-gradient(circle,rgba(14,165,233,.11),rgba(14,165,233,0) 72%);pointer-events:none
+}
+.case-head{
+  padding:18px 20px 16px;background:linear-gradient(135deg,#f4f9ff,#eaf4ff 52%,#f7fbff);
+  border-bottom:1px solid #dfeaf7;position:relative;z-index:1
+}
+.case-icon{
+  width:58px;height:58px;border-radius:18px;
+  background:linear-gradient(145deg,#153a9e,#168fe0 70%,#22d3ee);
+  box-shadow:0 10px 22px rgba(21,92,177,.23),inset 0 2px 0 rgba(255,255,255,.35);
+  font-size:29px
+}
+.case-head h2{font-family:var(--font-display);font-weight:700;color:#173a7f;font-size:24px}
+.case-head p{font-weight:700;color:#56708e;font-size:14px;line-height:1.45}
+.evidence{
+  padding:16px;background:linear-gradient(180deg,#fbfdff,#f5faff);
+  gap:11px;position:relative
+}
+.evidence::before{
+  content:"EVIDENCIAS";font-family:var(--font-display);font-size:10px;font-weight:700;letter-spacing:.12em;color:#6b7f98;
+  padding:0 3px 1px
+}
+.evidence-card{
+  padding:13px 16px 13px 18px;border-radius:17px;background:#fff;color:#304c6a;font-size:14px;line-height:1.45;font-weight:700;
+  border:2px solid #e0eaf6;box-shadow:0 4px 0 #e9f0f8,0 8px 16px rgba(26,75,130,.05);
+  position:relative;overflow:hidden
+}
+.evidence-card::before{
+  content:"";position:absolute;left:0;top:0;bottom:0;width:5px;background:linear-gradient(180deg,#2457d6,#0ea5e9)
+}
+.evidence-card.chat{background:linear-gradient(180deg,#f0f7ff,#eaf4ff);border-color:#cfe1fb;color:#2c4b78}
+.evidence-card.chat::before{background:linear-gradient(180deg,#7357d7,#0ea5e9)}
+
+/* Tablero de respuestas: más rico visualmente, sin apretar los espacios */
+.challenge{
+  min-height:380px;padding:16px 16px 14px;
+  background:
+    radial-gradient(420px 160px at 12% 100%,rgba(14,165,233,.11),transparent 70%),
+    radial-gradient(330px 160px at 88% 0%,rgba(115,87,215,.08),transparent 70%),
+    linear-gradient(180deg,#ffffff 0%,#f8fbff 100%);
+  overflow:hidden;isolation:isolate
+}
+.challenge::before{
+  content:"";position:absolute;inset:0;z-index:-1;pointer-events:none;opacity:.55;
+  background-image:radial-gradient(#d9e9fb 1px,transparent 1px);background-size:24px 24px;
+  mask-image:linear-gradient(#000,#000 70%,transparent)
+}
+.challenge-title{
+  display:flex;align-items:center;justify-content:center;gap:8px;
+  color:#173a7f;font-family:var(--font-display);font-size:18px;font-weight:600;letter-spacing:.01em
+}
+.challenge-title::before{content:"🕵️";font-size:22px}
+.targets{gap:14px;padding-bottom:96px;position:relative}
+.target{
+  min-height:112px;border:2px solid #dce7f5;border-radius:20px;
+  background:linear-gradient(180deg,#ffffff,#f7faff);
+  padding:14px 11px;box-shadow:0 5px 0 #e8eef7,0 10px 20px rgba(20,58,110,.055);
+  font-family:var(--font-body);font-weight:900;color:#294765;
+  position:relative;overflow:hidden;transition:transform .16s ease,border-color .16s ease,box-shadow .16s ease,background .16s ease
+}
+.target::after{content:"";position:absolute;left:14px;right:14px;bottom:0;height:4px;border-radius:4px 4px 0 0;background:linear-gradient(90deg,#2457d6,#0ea5e9);opacity:.32}
+.target:nth-child(2)::after{background:linear-gradient(90deg,#7357d7,#b56bff)}
+.target:nth-child(3)::after{background:linear-gradient(90deg,#0f9d74,#22c55e)}
+.target:nth-child(4)::after{background:linear-gradient(90deg,#e38a0b,#fbbf24)}
+.target:nth-child(5)::after{background:linear-gradient(90deg,#e24b5a,#fb7185)}
+.target .ico{font-size:34px;margin-bottom:7px;filter:drop-shadow(0 4px 5px rgba(20,50,100,.10))}
+.target .lab{font-family:var(--font-display);font-size:14px;line-height:1.18;font-weight:600}
+.target:hover{transform:translateY(-3px);border-color:#8bb8ec;box-shadow:0 8px 0 #dbe7f7,0 14px 24px rgba(37,99,235,.11)}
+.target.over{transform:translateY(-2px) scale(1.035);border-color:#2457d6;background:linear-gradient(180deg,#f2f8ff,#e8f4ff);box-shadow:0 8px 0 #c9ddfa,0 0 0 5px rgba(36,87,214,.08),0 14px 28px rgba(37,99,235,.15)}
+.target.correct-hit{animation:g3TargetPulse .48s ease}
+.target.wrong-hit{animation:g3Shake .36s ease}
+
+/* CLIC como pieza central del tablero */
+.draggable{
+  width:88px;height:88px;bottom:7px;border-radius:25px;
+  background:linear-gradient(145deg,#123d99,#168fe0 65%,#22d3ee);
+  border:4px solid #fff;
+  box-shadow:0 15px 28px rgba(19,111,193,.30),0 0 0 2px rgba(32,143,224,.12),inset 0 2px 0 rgba(255,255,255,.3);
+}
+.draggable img{width:82px;height:82px;filter:drop-shadow(0 6px 6px rgba(10,40,90,.18))}
+.draggable::after{
+  content:"CLIC";position:absolute;left:50%;bottom:-8px;transform:translateX(-50%);
+  background:#fff;color:#1b64be;border:2px solid #bcdafa;padding:3px 9px;border-radius:999px;
+  font-family:var(--font-display);font-size:9px;font-weight:700;letter-spacing:.08em;
+  box-shadow:0 4px 10px rgba(20,70,130,.10)
+}
+.challenge:after{
+  content:'MUEVE A CLIC AQUÍ';position:absolute;left:16px;right:16px;bottom:6px;height:88px;
+  border-radius:20px;border:2px dashed #82bff0;
+  background:linear-gradient(180deg,rgba(240,250,255,.98),rgba(226,244,255,.98));
+  color:#216cad;font-family:var(--font-display);font-size:11px;font-weight:600;letter-spacing:.06em;
+  display:flex;align-items:flex-start;justify-content:center;padding-top:9px;
+  z-index:2;pointer-events:none;box-shadow:inset 0 1px 0 #fff
+}
+
+.feedback{background:rgba(247,251,255,.97)}
+.fb{border:2px solid #dae7f6;box-shadow:0 18px 42px rgba(21,52,80,.18)}
+.fb h3{font-family:var(--font-display);color:#183d80}
+.fb p{font-weight:700}
+.finish{
+  background:radial-gradient(360px 230px at 50% 25%,rgba(56,189,248,.13),transparent 72%),linear-gradient(180deg,#fff,#f6fbff 70%,#edf6ff)
+}
+.finish h2{font-family:var(--font-display);color:#16307d}
+.final-score{font-family:var(--font-display)}
+
+/* PC: composición amplia como M1/M2 */
+@media(min-width:721px){
+  .mission{padding:20px 24px 24px}
+  .challenge{min-height:390px}
+  .targets{grid-template-columns:repeat(2,minmax(0,1fr));gap:14px}
+  .target:last-child{grid-column:1/-1}
+}
+
+/* Celular: conserva pantalla completa, pero con mayor jerarquía visual */
+@media(max-width:720px){
+  .panel{border-radius:20px}
+  .start{padding:10px 12px}
+  .start-grid{gap:4px}
+  .start h2{font-size:clamp(23px,7vw,30px);line-height:1.04;margin:5px 0 7px}
+  .start p{font-size:11.5px;line-height:1.35}
+  .eyebrow{font-size:9px;padding:5px 9px}
+  .instruction{margin-top:7px;padding:8px 10px;font-size:10.3px;border-radius:14px}
+  .clic-hero{height:min(23svh,165px);min-height:0}
+  .clic-hero::before{width:170px;height:170px}
+  .clic-hero::after{font-size:8px;padding:5px 8px;top:3%;right:2%}
+  .mission{padding:7px 8px 8px}
+  .hud{font-size:11px}
+  .progress{height:8px;margin:5px 0 7px}
+  .case{border-radius:16px}
+  .case-head{padding:8px 10px;gap:8px}
+  .case-icon{width:42px;height:42px;border-radius:13px;font-size:22px}
+  .case-head h2{font-size:17px}
+  .case-head p{font-size:11.2px;line-height:1.3;margin-top:2px}
+  .evidence{padding:7px;gap:6px}
+  .evidence::before{font-size:8px}
+  .evidence-card{padding:8px 9px 8px 12px;min-height:56px;border-radius:11px;font-size:11px;line-height:1.27}
+  .evidence-card::before{width:3px}
+  .challenge{padding:7px 8px 4px;min-height:0;background:
+    radial-gradient(250px 120px at 8% 100%,rgba(14,165,233,.10),transparent 70%),
+    radial-gradient(210px 120px at 90% 0%,rgba(115,87,215,.07),transparent 70%),
+    linear-gradient(180deg,#fff,#f7fbff)}
+  .challenge-title{font-size:13px;margin:0 0 7px;line-height:1.08}
+  .challenge-title::before{font-size:16px}
+  .targets{gap:10px 9px;padding-bottom:96px}
+  .target{min-height:70px;border-radius:13px;padding:8px 6px;box-shadow:0 4px 0 #e8eef7,0 7px 12px rgba(20,58,110,.05)}
+  .target .ico{font-size:25px;margin-bottom:3px}
+  .target .lab{font-size:11.7px;line-height:1.08}
+  .target::after{left:9px;right:9px;height:3px}
+  .draggable{width:80px;height:80px;bottom:5px;border-radius:22px;border-width:3px}
+  .draggable img{width:75px;height:75px}
+  .draggable::after{bottom:-7px;font-size:8px;padding:2px 7px}
+  .challenge:after{left:8px;right:8px;bottom:3px;height:88px;border-radius:16px;padding-top:7px;font-size:9.5px}
+}
+@media(max-width:390px){
+  .targets{gap:9px 8px;padding-bottom:91px}
+  .target{min-height:65px}
+  .target .lab{font-size:11.1px}
+  .target .ico{font-size:23px}
+  .draggable{width:74px;height:74px}.draggable img{width:69px;height:69px}
 }
 </style>
 
