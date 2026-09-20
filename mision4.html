@@ -48,14 +48,49 @@ h1{margin:2px 0 0;font-size:clamp(24px,4vw,38px);line-height:1.02;color:#1b416f}
 .check{position:absolute;right:8px;top:8px;z-index:4;width:32px;height:32px;border-radius:50%;background:#1c9258;color:#fff;display:none;place-items:center;font-weight:1000;box-shadow:0 5px 10px rgba(0,0,0,.18)}
 .cardx.matched .check{display:grid}
 .modal{
-position:fixed;inset:0;background:rgba(23,32,48,.52);display:none;align-items:center;justify-content:center;padding:18px;z-index:30;backdrop-filter:blur(3px)
+position:fixed;inset:0;background:rgba(23,32,48,.58);display:none;align-items:center;justify-content:center;
+padding:14px;z-index:30;backdrop-filter:blur(4px)
 }
-.modal.show{display:flex}.modalbox{width:min(760px,100%);background:#fff;border-radius:26px;box-shadow:0 25px 60px rgba(0,0,0,.22);overflow:hidden}
-.modalhead{padding:18px 20px;background:linear-gradient(135deg,#fff8fc,#f7eef9);border-bottom:1px solid var(--line);display:flex;align-items:center;gap:14px}
-.modalimage{width:100px;height:100px;border-radius:20px;background:#f7f1f8;border:1px solid #eadfeb;display:grid;place-items:center;overflow:hidden;flex:none}
-.modalimage img{width:100%;height:100%;object-fit:contain}.modalhead h3{margin:0;font-size:28px}.modalhead p{margin:5px 0 0;color:var(--muted);line-height:1.4;font-size:13px}
-.modalbody{padding:20px}.modalbody .info{font-size:16px;line-height:1.58;color:#3b4e61}
-.modalbody .remember{margin-top:15px;padding:14px 16px;border-radius:16px;background:#eef7ff;border:1px solid #cfe3f7;font-weight:900;color:#355a76}
+.modal.show{display:flex}
+.modalbox{
+width:min(820px,100%);max-height:min(88vh,760px);background:#fff;border-radius:26px;
+box-shadow:0 25px 60px rgba(0,0,0,.24);overflow:hidden;display:flex;flex-direction:column
+}
+.modalhead{
+padding:18px 20px;background:linear-gradient(135deg,#fff8fc,#f7eef9);border-bottom:1px solid var(--line);
+display:flex;align-items:center;gap:16px;flex:none
+}
+.modalimage{
+width:118px;height:118px;border-radius:20px;background:#f7f1f8;border:1px solid #eadfeb;
+display:grid;place-items:center;overflow:hidden;flex:none
+}
+.modalimage img{width:100%;height:100%;object-fit:contain}
+.modalhead h3{margin:0;font-size:30px;line-height:1.08}
+.modalhead p{margin:6px 0 0;color:var(--muted);line-height:1.45;font-size:14px}
+.modalbody{
+padding:22px 24px 8px;overflow-y:auto;-webkit-overflow-scrolling:touch;flex:1
+}
+.modalbody .info{font-size:18px;line-height:1.7;color:#31485b}
+.modalbody .remember{
+margin-top:18px;margin-bottom:10px;padding:16px 18px;border-radius:16px;background:#eef7ff;
+border:1px solid #cfe3f7;font-weight:900;color:#355a76;font-size:16px;line-height:1.5
+}
+.modalhint{
+padding:12px 18px 15px;text-align:center;background:#fbfcfe;border-top:1px solid #e8edf3;
+color:#71808d;font-size:12px;font-weight:800;flex:none
+}
+@media(max-width:560px){
+ .modal{padding:8px}
+ .modalbox{max-height:92vh;border-radius:22px}
+ .modalhead{padding:14px;gap:11px;align-items:flex-start}
+ .modalimage{width:86px;height:86px;border-radius:17px}
+ .modalhead h3{font-size:23px}
+ .modalhead p{font-size:12px;line-height:1.35}
+ .modalbody{padding:17px 16px 6px}
+ .modalbody .info{font-size:16px;line-height:1.62}
+ .modalbody .remember{font-size:14px;line-height:1.45;padding:14px}
+ .modalhint{padding:10px 12px 12px;font-size:11px}
+}
 .finish{min-height:620px;display:grid;place-items:center;padding:25px;text-align:center}.finish img{height:220px;width:auto}.finish h2{font-size:32px;margin:5px 0 8px}
 .finish p{max-width:690px;margin:auto;color:var(--muted);line-height:1.55}.finalscore{font-size:46px;color:var(--violet);font-weight:1000;margin:10px}
 footer{text-align:center;padding:11px 8px 3px;color:#71818d;font-size:11px;line-height:1.35}
@@ -104,7 +139,7 @@ footer{text-align:center;padding:11px 8px 3px;color:#71818d;font-size:11px;line-
  <div class="game">
   <div class="hud"><span class="paircount" id="pairCount">PAREJAS RESUELTAS 0 / 6</span><span class="score">⭐ <span id="score">0</span></span></div>
   <div class="bar"><i id="bar"></i></div>
-  <div class="hint">Encuentra dos ilustraciones iguales. Si no coinciden, se ocultan y puedes seguir buscando.</div>
+  <div class="hint">Toca una tarjeta para descubrir la imagen. Recuerda dónde aparece y encuentra su igual.</div>
   <div class="memory" id="memory"></div>
  </div>
 </section>
@@ -118,8 +153,15 @@ footer{text-align:center;padding:11px 8px 3px;color:#71818d;font-size:11px;line-
 
 <div class="modal" id="modal" role="dialog" aria-modal="true">
  <div class="modalbox" id="modalBox">
-  <div class="modalhead"><div class="modalimage"><img id="modalImg" alt=""></div><div><h3 id="modalTitle"></h3><p>✨ Pareja encontrada. Esta es la información que debes recordar.</p></div></div>
-  <div class="modalbody"><div class="info" id="modalInfo"></div><div class="remember" id="modalRemember"></div></div>
+  <div class="modalhead">
+   <div class="modalimage"><img id="modalImg" alt=""></div>
+   <div><h3 id="modalTitle"></h3><p>✨ Pareja encontrada. Lee la información antes de continuar.</p></div>
+  </div>
+  <div class="modalbody" id="modalBodyScroll">
+   <div class="info" id="modalInfo"></div>
+   <div class="remember" id="modalRemember"></div>
+  </div>
+  <div class="modalhint">👆 Toca fuera de esta ficha para continuar · En PC también puedes pulsar ESC</div>
  </div>
 </div>
 
@@ -206,14 +248,15 @@ function showInfo(p){
  $("modalInfo").textContent=p.info;
  $("modalRemember").textContent=p.remember;
  $("modal").classList.add("show");
- modalTimer=setTimeout(closeInfo,3500);
+ $("modalBodyScroll").scrollTop = 0;
 }
 
 function closeInfo(){
  $("modal").classList.remove("show");
- clearTimeout(modalTimer);modalTimer=null;
+ clearTimeout(modalTimer);
+ modalTimer=null;
 }
-$("modal").addEventListener("click",e=>{if(e.target===$("modal")||e.target.closest(".modalbox")===null)closeInfo()});
+$("modal").addEventListener("click",e=>{if(e.target === $("modal")) closeInfo();});
 document.addEventListener("keydown",e=>{if(e.key==="Escape")closeInfo()});
 
 function show(id){
