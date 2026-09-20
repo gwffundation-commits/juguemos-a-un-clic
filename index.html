@@ -2,22 +2,9 @@
 <html lang="es">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
 <title>Juguemos a un CLIC | Misión 01 - Detecta la Agresión</title>
 <meta name="description" content="Juego educativo CLIC sobre los tipos de agresión escolar.">
-<style>
-@media (max-width: 600px) {
-  .logo-header {
-    flex-direction: column !important;
-    gap: 15px !important;
-    text-align: center !important;
-  }
-  .logo-header img {
-    max-height: 50px !important;
-  }
-}
-</style>
-
 <style>
   :root{
     --bg1:#eef7ff;
@@ -195,14 +182,205 @@
   .score-big{font-size:44px;font-weight:1000;color:var(--primary)}
   .tip{margin:16px auto 0;max-width:650px;background:#f7f9fc;border-radius:16px;padding:16px;line-height:1.5;color:var(--muted)}
   footer{padding:16px 4px 4px;color:var(--muted);font-size:12px;text-align:center}
-  @media(max-width:720px){
-    .wrap{padding:12px}
-    .game{padding:16px}
-    .intro{grid-template-columns:1fr}
-    .hero-card{display:none}
-    .answer-grid{grid-template-columns:1fr}
-    .question{font-size:20px}
+
+  /* ---------- AJUSTES PARA CELULAR ---------- */
+  @media (max-width:720px){
+    .wrap{
+      padding:10px;
+      width:100%;
+    }
+
+    header{
+      border-radius:22px;
+    }
+
+    /* En celular: primero los logos y debajo el nombre del proyecto.
+       Esto evita que los logos aprieten o corten el título. */
+    .institution-bar{
+      display:grid;
+      grid-template-columns:1fr 1fr;
+      grid-template-areas:
+        "gov fpfsc"
+        "center center";
+      gap:4px 8px;
+      padding:10px 10px 12px;
+    }
+
+    .institution-logo{
+      height:62px;
+      width:100%;
+    }
+
+    .institution-logo.gov{
+      grid-area:gov;
+      justify-self:start;
+      padding:2px 4px;
+      max-width:92px;
+    }
+
+    .institution-logo.fpfsc{
+      grid-area:fpfsc;
+      justify-self:end;
+      padding:2px 0;
+      max-width:86px;
+    }
+
+    .project-center{
+      grid-area:center;
+      width:100%;
+      min-width:0;
+      gap:7px;
+      justify-content:center;
+      flex-direction:row;
+      text-align:left;
+      padding:2px 4px 0;
+    }
+
+    .clic-badge{
+      width:44px;
+      height:44px;
+      border-radius:13px;
+      font-size:21px;
+    }
+
+    .project-center > div:last-child{
+      min-width:0;
+      max-width:calc(100% - 52px);
+    }
+
+    .project-kicker{
+      font-size:8px;
+      letter-spacing:.09em;
+      margin-bottom:2px;
+    }
+
+    .project-center h1{
+      font-size:clamp(20px,6vw,27px);
+      line-height:1.02;
+      letter-spacing:-.015em;
+      white-space:normal;
+      overflow-wrap:normal;
+      word-break:normal;
+      margin:0;
+    }
+
+    .project-subtitle{
+      font-size:9px;
+      line-height:1.22;
+      margin-top:4px;
+      max-width:250px;
+    }
+
+    .mission-strip{
+      padding:13px 14px;
+      align-items:flex-start;
+      flex-direction:column;
+      gap:10px;
+    }
+
+    .mission-strip strong{
+      font-size:22px;
+    }
+
+    .mission-label{
+      font-size:10px;
+    }
+
+    .mission-pills{
+      width:100%;
+      justify-content:flex-start;
+      gap:7px;
+    }
+
+    .pill{
+      padding:7px 10px;
+      font-size:11px;
+    }
+
+    .game{
+      margin-top:12px;
+      padding:16px;
+      border-radius:20px;
+    }
+
+    .intro{
+      grid-template-columns:1fr;
+    }
+
+    .hero-card{
+      display:none;
+    }
+
+    .answer-grid{
+      grid-template-columns:1fr;
+    }
+
+    .question{
+      font-size:20px;
+    }
+
+    .controls{
+      gap:10px;
+    }
+
+    button.primary,
+    button.secondary{
+      min-height:48px;
+      padding:12px 16px;
+    }
+
+    footer{
+      padding:14px 8px 4px;
+      font-size:11px;
+    }
   }
+
+  @media (max-width:420px){
+    .institution-bar{
+      padding-left:8px;
+      padding-right:8px;
+    }
+
+    .institution-logo{
+      height:56px;
+    }
+
+    .institution-logo.gov{
+      max-width:80px;
+    }
+
+    .institution-logo.fpfsc{
+      max-width:76px;
+    }
+
+    .project-center{
+      gap:6px;
+    }
+
+    .clic-badge{
+      width:40px;
+      height:40px;
+      font-size:19px;
+    }
+
+    .project-center > div:last-child{
+      max-width:calc(100% - 46px);
+    }
+
+    .project-center h1{
+      font-size:20px;
+    }
+
+    .project-subtitle{
+      font-size:8.5px;
+    }
+
+    .mission-pills{
+      flex-wrap:wrap;
+    }
+  }
+
+
 </style>
 </head>
 <body>
