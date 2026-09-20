@@ -1078,6 +1078,117 @@ html,body{overflow-x:hidden;}
 }
 </style>
 
+
+<style id="g3-v9-mobile-drag-final">
+/* V9 — móvil: arrastre real de CLIC con long-press para no bloquear el desplazamiento/actualización */
+@media (max-width:720px){
+  html,body{
+    overflow-x:hidden!important;
+    overflow-y:auto!important;
+    touch-action:pan-y!important;
+    overscroll-behavior-y:auto!important;
+  }
+  .challenge{
+    position:relative!important;
+    padding:7px 8px 10px!important;
+    overflow:visible!important;
+    min-height:0!important;
+  }
+  .challenge-title{
+    font-size:12.8px!important;
+    line-height:1.12!important;
+    margin:2px 4px 7px!important;
+  }
+  .targets{
+    display:grid!important;
+    grid-template-columns:repeat(2,minmax(0,1fr))!important;
+    column-gap:14px!important;
+    row-gap:12px!important;
+    padding:0 3px!important;
+    margin:0!important;
+  }
+  .target,.target:last-child{
+    grid-column:auto!important;
+    width:100%!important;
+    min-height:72px!important;
+    height:72px!important;
+    padding:7px 6px!important;
+    border-radius:14px!important;
+    border-width:2px!important;
+    box-shadow:0 5px 11px rgba(21,52,80,.09)!important;
+    transform:none!important;
+    touch-action:manipulation!important;
+  }
+  .target:last-child{grid-column:1/-1!important;}
+  .target .ico{font-size:23px!important;line-height:1!important;margin-bottom:2px!important}
+  .target .lab{font-size:11.5px!important;line-height:1.08!important}
+  .target.over{
+    transform:translateY(-1px)!important;
+    box-shadow:0 0 0 3px rgba(42,184,239,.18),0 7px 14px rgba(18,111,232,.14)!important;
+  }
+  .clic-dock-label{
+    display:block!important;
+    margin:9px 3px 4px!important;
+    min-height:24px!important;
+    padding:5px 6px!important;
+    border:1.5px dashed #71bde9!important;
+    border-radius:10px!important;
+    background:linear-gradient(180deg,#f4fbff,#e8f7ff)!important;
+    color:#245f8b!important;
+    text-align:center!important;
+    font-weight:950!important;
+    font-size:9.8px!important;
+    line-height:1.1!important;
+  }
+  .draggable{
+    position:relative!important;
+    left:auto!important;top:auto!important;bottom:auto!important;
+    display:grid!important;place-items:center!important;
+    width:60px!important;height:60px!important;
+    margin:1px auto 0!important;
+    border-radius:16px!important;
+    border-width:2px!important;
+    z-index:40!important;
+    touch-action:pan-y!important;
+    cursor:grab!important;
+    box-shadow:0 7px 15px rgba(19,111,193,.19)!important;
+  }
+  #drag{touch-action:pan-y!important;}
+  .draggable img{width:54px!important;height:54px!important;pointer-events:none!important;-webkit-user-drag:none!important}
+  .draggable.dragging{
+    position:fixed!important;
+    left:var(--g3-pointer-x,50vw)!important;
+    top:var(--g3-pointer-y,50vh)!important;
+    margin:0!important;
+    transform:translate(-50%,-50%) scale(1.06)!important;
+    z-index:99999!important;
+    box-shadow:0 12px 28px rgba(19,111,193,.34),0 0 0 4px rgba(42,184,239,.12)!important;
+    cursor:grabbing!important;
+  }
+  .draggable.mobile-ready{
+    animation:g3Glow 1.15s ease-in-out infinite!important;
+  }
+  .feedback{position:fixed!important;inset:0!important}
+}
+@media(max-width:390px){
+  .targets{column-gap:11px!important;row-gap:10px!important}
+  .target,.target:last-child{min-height:66px!important;height:66px!important;padding:6px 5px!important}
+  .target .ico{font-size:21px!important}
+  .target .lab{font-size:10.8px!important}
+  .draggable{width:56px!important;height:56px!important}
+  .draggable img{width:50px!important;height:50px!important}
+  .clic-dock-label{font-size:9.2px!important;margin-top:7px!important}
+}
+@media(max-width:349px){
+  .targets{column-gap:9px!important;row-gap:8px!important}
+  .target,.target:last-child{min-height:62px!important;height:62px!important}
+  .target .ico{font-size:19px!important}
+  .target .lab{font-size:10.1px!important}
+  .draggable{width:52px!important;height:52px!important}
+  .draggable img{width:47px!important;height:47px!important}
+}
+</style>
+
 </head>
 <body>
 <div class="bg" aria-hidden="true"></div>
@@ -1271,15 +1382,15 @@ function armMobileSelection(){
   mobileArmed=true;
   const d=$('drag'); if(d)d.classList.add('mobile-armed');
   document.querySelectorAll('.target').forEach(t=>t.classList.add('mobile-ready'));
-  const title=$('challengeTitle'); if(title)title.textContent='Ahora toca la categoría correcta';
-  const lbl=$('clicDockLabel'); if(lbl)lbl.textContent='CLIC está listo · toca una categoría';
+  const title=$('challengeTitle'); if(title)title.textContent='Arrastra CLIC hacia UNA categoría';
+  const lbl=$('clicDockLabel'); if(lbl)lbl.textContent='CLIC listo · arrastra hacia UNA categoría';
 }
 function disarmMobileSelection(){
   mobileArmed=false;
   const d=$('drag'); if(d)d.classList.remove('mobile-armed');
   document.querySelectorAll('.target').forEach(t=>t.classList.remove('mobile-ready'));
   const title=$('challengeTitle'); if(title)title.textContent=isMobile()?'Toca CLIC y luego toca UNA categoría':'Lleva a CLIC hacia la categoría correcta';
-  const lbl=$('clicDockLabel'); if(lbl)lbl.textContent='1 · Toca CLIC   2 · Toca UNA categoría';
+  const lbl=$('clicDockLabel'); if(lbl)lbl.textContent='Mantén pulsado CLIC · arrástralo · suéltalo sobre UNA categoría';
 }
 function begin(){
   current=0;score=0;dragging=false;mobileArmed=false;
@@ -1311,24 +1422,30 @@ function renderCase(){
   });
   resetDrag();
   if(isMobile()){
-    const title=$('challengeTitle'); if(title)title.textContent='Toca CLIC y luego toca una categoría';
-    const lbl=$('clicDockLabel'); if(lbl)lbl.textContent='1 · Toca CLIC   2 · Toca UNA categoría';
+    const title=$('challengeTitle'); if(title)title.textContent='Mantén CLIC pulsado y arrástralo a la categoría';
+    const lbl=$('clicDockLabel'); if(lbl)lbl.textContent='Mantén pulsado CLIC · arrástralo · suéltalo sobre UNA categoría';
   }
   Sound.scene();
 }
+
 let autoScrollFrame=null;
 let lastPointer={x:0,y:0};
+let mobileHoldTimer=null;
+let mobileTouchPending=false;
+let mobileStartPoint={x:0,y:0};
 
 function resetDrag(){
   const d=$('drag'); if(!d)return;
   d.style.left=isMobile()?'':'50%';
-  d.style.top='';d.style.bottom=isMobile()?'':'17px';
+  d.style.top='';
+  d.style.bottom=isMobile()?'':'17px';
   d.style.transform=isMobile()?'':'translateX(-50%)';
-  d.classList.remove('dragging');
   d.style.removeProperty('--g3-pointer-x');
   d.style.removeProperty('--g3-pointer-y');
+  d.classList.remove('dragging');
   document.querySelectorAll('.target').forEach(t=>t.classList.remove('over'));
-  if(isMobile())disarmMobileSelection();
+  mobileTouchPending=false;
+  clearTimeout(mobileHoldTimer); mobileHoldTimer=null;
 }
 function center(el){
   const r=el.getBoundingClientRect();
@@ -1336,158 +1453,150 @@ function center(el){
 }
 function pointInsideTarget(pt,t){
   const r=t.getBoundingClientRect();
-  return pt.x>=r.left && pt.x<=r.right && pt.y>=r.top && pt.y<=r.bottom;
+  const inset=Math.min(8, Math.max(3, Math.min(r.width,r.height)*0.08));
+  return pt.x>=r.left+inset && pt.x<=r.right-inset && pt.y>=r.top+inset && pt.y<=r.bottom-inset;
 }
 function targetAtPoint(pt){
   let hit=null;
   document.querySelectorAll('.target').forEach(t=>{
     const inside=pointInsideTarget(pt,t);
     t.classList.toggle('over',inside);
-    if(inside) hit=t;
+    if(inside && !hit) hit=t;
   });
   return hit;
 }
 function targetAtDragCenter(){
-  const pt=center($('drag'));
-  let hit=null;
-  document.querySelectorAll('.target').forEach(t=>{
-    const inside=pointInsideTarget(pt,t);
-    t.classList.toggle('over',inside);
-    if(inside) hit=t;
-  });
-  return hit;
+  return targetAtPoint(center($('drag')));
 }
 function stopAutoScroll(){
   if(autoScrollFrame){cancelAnimationFrame(autoScrollFrame);autoScrollFrame=null;}
 }
 function autoScrollTick(){
   if(!dragging){stopAutoScroll();return;}
-  const edge=95;
-  const maxSpeed=18;
+  const edge=72, maxSpeed=14;
   let dy=0;
   if(lastPointer.y<edge) dy=-Math.ceil((edge-lastPointer.y)/edge*maxSpeed);
   else if(lastPointer.y>window.innerHeight-edge) dy=Math.ceil((lastPointer.y-(window.innerHeight-edge))/edge*maxSpeed);
-  if(dy!==0) window.scrollBy(0,dy);
+  if(dy) window.scrollBy(0,dy);
   autoScrollFrame=requestAnimationFrame(autoScrollTick);
 }
-function startAutoScroll(e){
-  lastPointer.x=e.clientX;lastPointer.y=e.clientY;
+function startAutoScroll(){
   if(!autoScrollFrame) autoScrollFrame=requestAnimationFrame(autoScrollTick);
+}
+function beginMobileDrag(e){
+  const d=$('drag');
+  if(!cases[current]||$('feedback').classList.contains('show'))return;
+  dragging=true;
+  mobileTouchPending=false;
+  pointerId=e.pointerId;
+  lastPointer={x:e.clientX,y:e.clientY};
+  d.classList.add('mobile-armed','dragging');
+  d.style.setProperty('--g3-pointer-x',e.clientX+'px');
+  d.style.setProperty('--g3-pointer-y',e.clientY+'px');
+  try{d.setPointerCapture(pointerId)}catch(_){ }
+  document.body.classList.add('g3-mobile-dragging');
+  Sound.click();
+  startAutoScroll();
+  move(e);
+}
+function scheduleMobileDrag(e){
+  clearTimeout(mobileHoldTimer);
+  mobileTouchPending=true;
+  mobileStartPoint={x:e.clientX,y:e.clientY};
+  mobileHoldTimer=setTimeout(()=>{
+    if(mobileTouchPending && !dragging) beginMobileDrag(e);
+  },340);
+}
+function cancelMobilePending(){
+  mobileTouchPending=false;
+  clearTimeout(mobileHoldTimer); mobileHoldTimer=null;
 }
 function down(e){
   if(!cases[current]||$('feedback').classList.contains('show'))return;
-  dragging=true;pointerId=e.pointerId;
-  lastPointer={x:e.clientX,y:e.clientY};
-  try{$('drag').setPointerCapture(pointerId)}catch(_){ }
   if(isMobile()){
-    mobileArmed=true;
-    $('drag').classList.add('mobile-armed');
-    $('drag').style.setProperty('--g3-pointer-x',e.clientX+'px');
-    $('drag').style.setProperty('--g3-pointer-y',e.clientY+'px');
-    $('drag').classList.add('dragging');
-    document.querySelectorAll('.target').forEach(t=>t.classList.remove('over'));
-  }else{
-    $('drag').classList.add('dragging');
-    document.querySelectorAll('.target').forEach(t=>t.classList.remove('over'));
+    scheduleMobileDrag(e);
+    return;
   }
+  dragging=true; pointerId=e.pointerId; lastPointer={x:e.clientX,y:e.clientY};
+  try{$('drag').setPointerCapture(pointerId)}catch(_){ }
+  $('drag').classList.add('dragging');
+  document.querySelectorAll('.target').forEach(t=>t.classList.remove('over'));
   Sound.click();
-  startAutoScroll(e);
 }
 function move(e){
-  if(!dragging)return;
-  lastPointer={x:e.clientX,y:e.clientY};
-  const d=$('drag');
   if(isMobile()){
+    if(mobileTouchPending && !dragging){
+      const dx=e.clientX-mobileStartPoint.x, dy=e.clientY-mobileStartPoint.y;
+      if(Math.hypot(dx,dy)>10) cancelMobilePending();
+      return;
+    }
+    if(!dragging)return;
+    e.preventDefault();
+    lastPointer={x:e.clientX,y:e.clientY};
+    const d=$('drag');
     d.style.setProperty('--g3-pointer-x',e.clientX+'px');
     d.style.setProperty('--g3-pointer-y',e.clientY+'px');
     targetAtPoint({x:e.clientX,y:e.clientY});
     return;
   }
-  const r=$('challenge').getBoundingClientRect();
-  let x=e.clientX-r.left-d.offsetWidth/2;
-  let y=e.clientY-r.top-d.offsetHeight/2;
+  if(!dragging)return;
+  lastPointer={x:e.clientX,y:e.clientY};
+  const d=$('drag'), r=$('challenge').getBoundingClientRect();
+  let x=e.clientX-r.left-d.offsetWidth/2, y=e.clientY-r.top-d.offsetHeight/2;
   x=Math.max(5,Math.min(r.width-d.offsetWidth-5,x));
   y=Math.max(44,Math.min(r.height-d.offsetHeight-7,y));
-  d.style.left=x+'px';d.style.top=y+'px';d.style.bottom='auto';d.style.transform='none';
+  d.style.left=x+'px'; d.style.top=y+'px'; d.style.bottom='auto'; d.style.transform='none';
   targetAtDragCenter();
 }
-function up(){
+function up(e){
+  if(isMobile()){
+    if(mobileTouchPending && !dragging){cancelMobilePending();return;}
+    if(!dragging)return;
+    dragging=false;stopAutoScroll();
+    if(e && e.pointerType==='touch'){try{$('drag').releasePointerCapture(e.pointerId)}catch(_){}}
+    const hit=targetAtPoint({x:e.clientX,y:e.clientY});
+    $('drag').classList.remove('dragging','mobile-armed');
+    document.body.classList.remove('g3-mobile-dragging');
+    document.querySelectorAll('.target').forEach(t=>t.classList.remove('over'));
+    if(hit) choose(hit.dataset.id); else resetDrag();
+    return;
+  }
   if(!dragging)return;
   dragging=false;stopAutoScroll();
   const d=$('drag');
-  let hit=null;
-  if(isMobile()){
-    hit=targetAtPoint({x:lastPointer.x,y:lastPointer.y});
-  }else{
-    d.classList.remove('dragging');
-    hit=targetAtDragCenter();
-  }
+  const hit=targetAtDragCenter();
   d.classList.remove('dragging');
   document.querySelectorAll('.target').forEach(t=>t.classList.remove('over'));
-  if(hit){choose(hit.dataset.id);}
-  else {resetDrag();}
+  if(hit)choose(hit.dataset.id); else resetDrag();
 }
 
-function choose(id){
-  if($('feedback').classList.contains('show'))return;
-  const c=cases[current],correct=id===c.correct;
-  const hit=document.querySelector(`.target[data-id="${id}"]`);
-  if(hit)hit.classList.add(correct?'correct-hit':'wrong-hit');
-  if(correct)score+=c.points;else score=Math.max(0,score-5);
-  $('score').textContent=score;
-  $('fbIcon').textContent=correct?'✅':'🧭';
-  $('fbTitle').textContent=correct?'¡Caso resuelto!':'Sigue la pista';
-  $('fbText').textContent=correct?c.learn:'La pista no coincide con esa categoría. Observa las evidencias y prueba nuevamente.';
-  $('feedback').classList.add('show');
-  if(correct){
-    Sound.correct();Confetti.burst(hit||$('drag'),55);
-    setTimeout(()=>{if(current<cases.length-1){current++;renderCase()}else{finish()}},1850);
-  }else{
-    Sound.wrong();
-    setTimeout(()=>{$('feedback').classList.remove('show');if(hit)hit.classList.remove('wrong-hit');resetDrag()},1450);
-  }
-}
-function finish(){
-  setProgress(cases.length);Sound.finish();Confetti.rain(1500);Confetti.burst($('finish'),100);
-  $('finalScore').textContent=score;
-  if(score>=80){$('finishTitle').textContent='🏆 ¡Caso tras caso, lo descubriste!';$('finishText').textContent='Reconociste correctamente las principales modalidades de ciberacoso trabajadas en esta misión.'}
-  else if(score>=50){$('finishTitle').textContent='🌟 ¡Buen trabajo, detective!';$('finishText').textContent='Identificaste varias señales. Una nueva investigación puede ayudarte a reforzar lo aprendido.'}
-  else{$('finishTitle').textContent='🧭 La investigación continúa';$('finishText').textContent='Cada pista ayuda a aprender. Vuelve a jugar y relaciona mejor cada situación con su categoría.'}
-  show('finish');
-}
-
-$('start').addEventListener('click',begin);
-$('start').addEventListener('pointerup',function(e){if(e.pointerType!=='mouse')begin()});
-document.addEventListener('keydown',function(e){
-  if(($('start').classList.contains('active')||$('finish').classList.contains('active'))&&(e.key==='Enter'||e.key===' ')){e.preventDefault();begin()}
-});
-$('finish').addEventListener('click',begin);
-/* PC: CLIC sí se arrastra. Móvil: CLIC se selecciona con un toque para no capturar el gesto vertical. */
+/* PC arrastre; móvil long-press + arrastre, con desplazamiento normal cuando no se activa. */
 $('drag').addEventListener('pointerdown',function(e){
-  if(isMobile()) return;
-  down(e);
-  e.preventDefault();
+  if(isMobile()){
+    scheduleMobileDrag(e);
+    return;
+  }
+  down(e); e.preventDefault();
 });
 $('drag').addEventListener('pointermove',function(e){
-  if(isMobile()) return;
-  move(e);
-  e.preventDefault();
+  if(isMobile()){
+    move(e);
+    return;
+  }
+  move(e); e.preventDefault();
 });
-$('drag').addEventListener('pointerup',function(){
-  if(isMobile()) return;
-  up();
+$('drag').addEventListener('pointerup',function(e){ up(e); });
+$('drag').addEventListener('pointercancel',function(e){
+  if(isMobile()){cancelMobilePending();if(dragging)up(e);}
+  else up(e);
 });
-$('drag').addEventListener('pointercancel',function(){
-  if(isMobile()) return;
-  up();
+window.addEventListener('pointermove',function(e){
+  if(!isMobile() && dragging)move(e);
 });
-$('drag').addEventListener('click',function(){
-  if(!isMobile() || $('feedback').classList.contains('show')) return;
-  armMobileSelection();
-  Sound.click();
+window.addEventListener('pointerup',function(e){
+  if(!isMobile() && dragging)up(e);
 });
-window.addEventListener('pointermove',function(e){if(dragging && !isMobile())move(e)});
-window.addEventListener('pointerup',function(){if(dragging && !isMobile())up()});
+
 </script>
 </body>
 </html>
