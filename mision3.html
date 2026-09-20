@@ -620,6 +620,219 @@ body{font-family:var(--font-body);}
 }
 </style>
 
+
+<style id="g3-mobile-v5">
+/* ===== V5 MOBILE · MAIS ESPACIO ENTRE RESPUESTAS Y ZONA EXCLUSIVA PARA CLIC ===== */
+@media (max-width:720px){
+  .challenge{padding:9px 9px 6px;}
+  .challenge-title{margin-bottom:9px;font-size:14px;}
+  .targets{
+    grid-template-columns:repeat(2,minmax(0,1fr));
+    column-gap:16px;
+    row-gap:16px;
+    padding:0 4px 112px;
+  }
+  .target{
+    min-height:78px;
+    padding:9px 7px;
+    border-radius:15px;
+  }
+  .target .ico{font-size:26px;margin-bottom:4px;}
+  .target .lab{font-size:12px;line-height:1.12;}
+  .target:last-child{grid-column:1/-1;}
+  .draggable{
+    width:84px;height:84px;
+    bottom:8px;
+    border-radius:24px;
+    z-index:20;
+  }
+  .draggable img{width:79px;height:79px;}
+  .challenge:after{
+    left:10px;right:10px;bottom:2px;height:96px;
+    border-radius:18px;padding-top:9px;font-size:10px;
+  }
+}
+@media (max-width:390px){
+  .targets{
+    grid-template-columns:repeat(2,minmax(0,1fr));
+    column-gap:15px;
+    row-gap:15px;
+    padding-left:3px;padding-right:3px;padding-bottom:108px;
+  }
+  .target{
+    min-height:72px;
+    padding:8px 6px;
+  }
+  .target .ico{font-size:24px;}
+  .target .lab{font-size:11.4px;line-height:1.1;}
+  .draggable{width:80px;height:80px;bottom:7px;}
+  .draggable img{width:75px;height:75px;}
+  .challenge:after{height:92px;font-size:9.5px;}
+}
+</style>
+
+
+<style id="g3-responsive-final-v6">
+/* =========================================================
+   MISIÓN 03 · AJUSTE RESPONSIVE FINAL V6
+   - Celular con desplazamiento natural + auto-scroll al arrastrar
+   - CLIC con zona exclusiva, amplia y separada
+   - Detección por centro dentro de una sola tarjeta: nunca dos respuestas
+   - PC conserva la misma maqueta visual de las Misiones 01 y 02
+   ========================================================= */
+html,body{overflow-x:hidden;}
+
+@media (min-width:721px){
+  .mission{padding:20px 24px 26px;}
+  .case{border-radius:26px;}
+  .case-head{padding:20px 22px 18px;}
+  .evidence{padding:18px;gap:13px;}
+  .evidence-card{font-size:15px;padding:15px 18px 15px 20px;min-height:72px;}
+  .challenge{
+    min-height:500px;
+    padding:18px 18px 16px;
+  }
+  .challenge-title{font-size:19px;margin-bottom:14px;}
+  .targets{
+    grid-template-columns:repeat(2,minmax(0,1fr));
+    gap:18px 18px;
+    padding:0 0 144px;
+  }
+  .target{min-height:122px;padding:16px 13px;border-radius:20px;}
+  .target .ico{font-size:36px;margin-bottom:8px;}
+  .target .lab{font-size:15px;line-height:1.2;}
+  .draggable{width:98px;height:98px;bottom:10px;border-radius:27px;}
+  .draggable img{width:92px;height:92px;}
+  .challenge:after{left:18px;right:18px;bottom:7px;height:116px;border-radius:22px;padding-top:11px;font-size:12px;}
+}
+
+@media (max-width:720px){
+  /* La versión móvil ya no queda atrapada en 100svh. La página puede
+     desplazarse y, al arrastrar hacia los bordes, se desplaza automáticamente. */
+  html,body{
+    height:auto!important;
+    min-height:100%;
+    overflow-x:hidden!important;
+    overflow-y:auto!important;
+  }
+  body{-webkit-overflow-scrolling:touch;}
+  .app{
+    height:auto!important;
+    min-height:100svh!important;
+    max-height:none!important;
+    display:block!important;
+    overflow:visible!important;
+    padding:6px 5px 24px!important;
+  }
+  .panel{
+    height:auto!important;
+    min-height:0!important;
+    overflow:visible!important;
+  }
+  .screen{
+    height:auto!important;
+    min-height:0!important;
+    overflow:visible!important;
+  }
+  #game.screen.active{display:block;}
+  .mission{
+    height:auto!important;
+    min-height:0!important;
+    overflow:visible!important;
+    padding:9px 8px 16px!important;
+  }
+  .case{
+    max-height:none!important;
+    height:auto!important;
+    overflow:visible!important;
+  }
+  .case-head{padding:10px 11px 11px!important;}
+  .case-head h2{font-size:19px!important;line-height:1.1!important;}
+  .case-head p{font-size:12px!important;line-height:1.32!important;}
+  .evidence{padding:9px!important;gap:8px!important;}
+  .evidence-card{font-size:12px!important;line-height:1.3!important;min-height:64px!important;padding:10px 11px 10px 14px!important;}
+
+  /* Tablero más respirado: dos columnas, grandes separaciones, quinta tarjeta completa. */
+  .challenge{
+    min-height:720px!important;
+    height:auto!important;
+    overflow:visible!important;
+    padding:11px 10px 9px!important;
+  }
+  .challenge-title{font-size:15px!important;margin:0 0 12px!important;line-height:1.15!important;}
+  .challenge-title::before{font-size:18px!important;}
+  .targets{
+    grid-template-columns:repeat(2,minmax(0,1fr))!important;
+    grid-template-rows:auto!important;
+    column-gap:20px!important;
+    row-gap:22px!important;
+    align-content:start!important;
+    padding:0 3px 160px!important;
+    min-height:0!important;
+    position:relative;
+    z-index:1;
+  }
+  .target{
+    min-height:104px!important;
+    height:auto!important;
+    padding:10px 8px!important;
+    border-radius:17px!important;
+  }
+  .target:last-child{grid-column:1/-1!important;}
+  .target .ico{font-size:28px!important;margin-bottom:5px!important;}
+  .target .lab{font-size:13.2px!important;line-height:1.16!important;}
+
+  /* Zona de CLIC totalmente independiente de las respuestas. */
+  .challenge:after{
+    left:10px!important;right:10px!important;bottom:7px!important;height:126px!important;
+    border-radius:21px!important;
+    border:2px dashed #67b7f0!important;
+    background:linear-gradient(180deg,#eefaff,#ddf2ff)!important;
+    padding-top:10px!important;
+    color:#1e6cae!important;
+    font-size:11px!important;
+    letter-spacing:.06em!important;
+    box-shadow:inset 0 1px 0 #fff,0 7px 16px rgba(24,104,176,.07)!important;
+    z-index:2!important;
+    pointer-events:none!important;
+  }
+  .draggable{
+    width:96px!important;height:96px!important;
+    bottom:17px!important;
+    border-radius:27px!important;
+    z-index:20!important;
+    touch-action:none!important;
+  }
+  .draggable img{width:91px!important;height:91px!important;}
+  .draggable::after{bottom:-9px!important;font-size:9px!important;padding:3px 8px!important;}
+  .draggable.dragging{transform:translateX(-50%) scale(1.08)!important;z-index:30!important;}
+
+  /* El toque directo en una tarjeta funciona, pero el arrastre solo responde a CLIC. */
+  .target{cursor:pointer;}
+}
+
+@media (max-width:390px){
+  .challenge{min-height:740px!important;}
+  .targets{column-gap:17px!important;row-gap:20px!important;padding-bottom:158px!important;}
+  .target{min-height:99px!important;padding:9px 7px!important;}
+  .target .ico{font-size:26px!important;}
+  .target .lab{font-size:12.2px!important;}
+  .challenge:after{height:124px!important;}
+  .draggable{width:92px!important;height:92px!important;bottom:16px!important;}
+  .draggable img{width:87px!important;height:87px!important;}
+}
+
+@media (max-width:349px){
+  .challenge{min-height:800px!important;}
+  .targets{column-gap:14px!important;row-gap:18px!important;padding-bottom:158px!important;}
+  .target{min-height:96px!important;}
+  .target .lab{font-size:11.4px!important;}
+  .challenge:after{height:120px!important;font-size:10px!important;}
+  .draggable{width:86px!important;height:86px!important;bottom:17px!important;}
+  .draggable img{width:81px!important;height:81px!important;}
+}
+</style>
+
 </head>
 <body>
 <div class="bg" aria-hidden="true"></div>
@@ -829,31 +1042,82 @@ function renderCase(){
   resetDrag();
   Sound.scene();
 }
+let autoScrollFrame=null;
+let lastPointer={x:0,y:0};
+
 function resetDrag(){
   const d=$('drag'); if(!d)return;
-  d.style.left='50%';d.style.top='';d.style.bottom='1px';d.style.transform='translateX(-50%)';d.classList.remove('dragging');
+  d.style.left='50%';d.style.top='';d.style.bottom='17px';d.style.transform='translateX(-50%)';
+  d.classList.remove('dragging');
+  document.querySelectorAll('.target').forEach(t=>t.classList.remove('over'));
 }
-function center(el){const r=el.getBoundingClientRect();return{x:r.left+r.width/2,y:r.top+r.height/2}}
+function center(el){
+  const r=el.getBoundingClientRect();
+  return {x:r.left+r.width/2,y:r.top+r.height/2};
+}
+function pointInsideTarget(pt,t){
+  const r=t.getBoundingClientRect();
+  return pt.x>=r.left && pt.x<=r.right && pt.y>=r.top && pt.y<=r.bottom;
+}
+function targetAtDragCenter(){
+  const pt=center($('drag'));
+  let hit=null;
+  document.querySelectorAll('.target').forEach(t=>{
+    const inside=pointInsideTarget(pt,t);
+    t.classList.toggle('over',inside);
+    if(inside) hit=t;
+  });
+  return hit;
+}
+function stopAutoScroll(){
+  if(autoScrollFrame){cancelAnimationFrame(autoScrollFrame);autoScrollFrame=null;}
+}
+function autoScrollTick(){
+  if(!dragging){stopAutoScroll();return;}
+  const edge=95;
+  const maxSpeed=18;
+  let dy=0;
+  if(lastPointer.y<edge) dy=-Math.ceil((edge-lastPointer.y)/edge*maxSpeed);
+  else if(lastPointer.y>window.innerHeight-edge) dy=Math.ceil((lastPointer.y-(window.innerHeight-edge))/edge*maxSpeed);
+  if(dy!==0) window.scrollBy(0,dy);
+  autoScrollFrame=requestAnimationFrame(autoScrollTick);
+}
+function startAutoScroll(e){
+  lastPointer.x=e.clientX;lastPointer.y=e.clientY;
+  if(!autoScrollFrame) autoScrollFrame=requestAnimationFrame(autoScrollTick);
+}
 function down(e){
   if(!cases[current]||$('feedback').classList.contains('show'))return;
   dragging=true;pointerId=e.pointerId;
-  try{$('drag').setPointerCapture(pointerId)}catch(_){}
-  $('drag').classList.add('dragging');Sound.click();
+  lastPointer={x:e.clientX,y:e.clientY};
+  try{$('drag').setPointerCapture(pointerId)}catch(_){ }
+  $('drag').classList.add('dragging');
+  document.querySelectorAll('.target').forEach(t=>t.classList.remove('over'));
+  Sound.click();
+  startAutoScroll(e);
 }
 function move(e){
   if(!dragging)return;
+  lastPointer={x:e.clientX,y:e.clientY};
   const d=$('drag'),r=$('challenge').getBoundingClientRect();
-  let x=e.clientX-r.left-d.offsetWidth/2,y=e.clientY-r.top-d.offsetHeight/2;
-  x=Math.max(5,Math.min(r.width-d.offsetWidth-5,x));y=Math.max(44,Math.min(r.height-d.offsetHeight-5,y));
+  let x=e.clientX-r.left-d.offsetWidth/2;
+  let y=e.clientY-r.top-d.offsetHeight/2;
+  /* Nunca dejes que CLIC salga del tablero. */
+  x=Math.max(5,Math.min(r.width-d.offsetWidth-5,x));
+  y=Math.max(44,Math.min(r.height-d.offsetHeight-7,y));
   d.style.left=x+'px';d.style.top=y+'px';d.style.bottom='auto';d.style.transform='none';
-  document.querySelectorAll('.target').forEach(t=>{const a=center(t),b=center(d),dist=Math.hypot(a.x-b.x,a.y-b.y);t.classList.toggle('over',dist<105)});
+  targetAtDragCenter();
 }
 function up(){
-  if(!dragging)return;dragging=false;$('drag').classList.remove('dragging');
-  let hit=null,best=9999;const d=$('drag');
-  document.querySelectorAll('.target').forEach(t=>{const a=center(t),b=center(d),dist=Math.hypot(a.x-b.x,a.y-b.y);if(dist<125&&dist<best){hit=t;best=dist}t.classList.remove('over')});
-  if(hit)choose(hit.dataset.id);else resetDrag();
+  if(!dragging)return;
+  dragging=false;stopAutoScroll();
+  $('drag').classList.remove('dragging');
+  const hit=targetAtDragCenter();
+  document.querySelectorAll('.target').forEach(t=>t.classList.remove('over'));
+  /* Solo se valida cuando el centro de CLIC está realmente dentro de una tarjeta. */
+  if(hit) choose(hit.dataset.id); else resetDrag();
 }
+
 function choose(id){
   if($('feedback').classList.contains('show'))return;
   const c=cases[current],correct=id===c.correct;
@@ -890,8 +1154,8 @@ document.addEventListener('keydown',function(e){
 $('finish').addEventListener('click',begin);
 $('drag').addEventListener('pointerdown',function(e){down(e);e.preventDefault()});
 $('drag').addEventListener('pointermove',function(e){move(e);e.preventDefault()});
-$('drag').addEventListener('pointerup',function(e){up(e);e.preventDefault()});
-$('drag').addEventListener('pointercancel',function(e){up(e);e.preventDefault()});
+$('drag').addEventListener('pointerup',function(){up()});
+$('drag').addEventListener('pointercancel',function(){up()});
 window.addEventListener('pointermove',function(e){if(dragging)move(e)});
 window.addEventListener('pointerup',function(){if(dragging)up()});
 </script>
