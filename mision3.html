@@ -134,8 +134,8 @@ html, body { width:100%; overflow-x:hidden; }
     display:flex;flex-direction:column;overflow:hidden;
   }
   .header-graphic{flex:0 0 auto;width:100%;border-radius:16px!important}
-  .header-art{border-radius:16px!important;max-height:calc(100svh * .19);overflow:hidden}
-  .header-art img{display:block;width:100%;height:auto;max-height:calc(100svh * .19);object-fit:contain}
+  .header-art{border-radius:16px!important;max-height:calc(100svh * .165);overflow:hidden}
+  .header-art img{display:block;width:100%;height:auto;max-height:calc(100svh * .165);object-fit:contain}
 
   .panel{
     flex:1 1 auto;min-height:0!important;height:auto;margin-top:5px;
@@ -163,34 +163,42 @@ html, body { width:100%; overflow-x:hidden; }
   .progress{height:6px;margin:6px 0 7px}
   .case{border-radius:14px;max-height:calc(100% - 28px);display:flex;flex-direction:column;overflow:hidden}
   .case-head{padding:8px 9px;gap:8px;flex:0 0 auto}
-  .case-icon{width:38px;height:38px;border-radius:12px;font-size:20px}
-  .case-head h2{font-size:15px;line-height:1.08}
-  .case-head p{font-size:10.2px;line-height:1.25;margin-top:3px}
+  .case-icon{width:40px;height:40px;border-radius:12px;font-size:21px}
+  .case-head h2{font-size:16.5px;line-height:1.08}
+  .case-head p{font-size:11.2px;line-height:1.28;margin-top:3px}
   .evidence{
     padding:6px;gap:6px;grid-template-columns:1fr 1fr;
     flex:0 0 auto;
   }
-  .evidence-card{padding:7px 8px;border-radius:10px;font-size:10.1px;line-height:1.25;min-height:54px;display:flex;align-items:center}
+  .evidence-card{padding:8px 9px;border-radius:10px;font-size:11.1px;line-height:1.28;min-height:56px;display:flex;align-items:center}
   .challenge{
-    flex:1 1 auto;min-height:0!important;height:auto;padding:7px 7px 6px;
-    display:flex;flex-direction:column;overflow:hidden;
+    flex:1 1 auto;min-height:0!important;height:auto;padding:7px 7px 5px;
+    display:flex;flex-direction:column;overflow:hidden;position:relative;
   }
-  .challenge-title{font-size:11.5px;margin:0 0 6px;line-height:1.12;flex:0 0 auto}
+  .challenge-title{font-size:12.7px;margin:0 0 7px;line-height:1.14;flex:0 0 auto}
   .targets{
-    grid-template-columns:repeat(3,1fr);gap:5px;padding-bottom:52px;
-    flex:1 1 auto;align-content:stretch;min-height:0;
+    grid-template-columns:repeat(2,1fr);gap:6px;padding-bottom:80px;
+    flex:1 1 auto;align-content:stretch;min-height:0;position:relative;z-index:1;
   }
+  .target:last-child{grid-column:1 / -1}
   .target{
-    min-height:0;height:auto;border-radius:12px;padding:6px 4px;
+    min-height:66px;height:auto;border-radius:12px;padding:7px 5px;
     border-width:1.5px;
   }
-  .target .ico{font-size:20px;margin-bottom:3px}
-  .target .lab{font-size:10px;line-height:1.08}
-  .draggable{
-    width:55px;height:55px;border-radius:17px;bottom:5px;border-width:2px;
+  .target .ico{font-size:23px;margin-bottom:3px}
+  .target .lab{font-size:11.4px;line-height:1.1}
+  .challenge:after{
+    content:'MUEVE A CLIC AQUÍ';position:absolute;left:7px;right:7px;bottom:3px;height:68px;
+    border-radius:16px;border:2px dashed #76bdf2;background:linear-gradient(180deg,#eef9ff,#e5f4ff);
+    color:#1f6cae;font-size:10px;font-weight:1000;letter-spacing:.05em;
+    display:flex;align-items:flex-start;justify-content:center;padding-top:6px;
+    z-index:2;pointer-events:none;
   }
-  .draggable img{width:52px;height:52px}
-  .draggable.dragging{transform:translateX(-50%) scale(1.05)}
+  .draggable{
+    width:72px;height:72px;border-radius:20px;bottom:1px;border-width:2px;z-index:8;
+  }
+  .draggable img{width:68px;height:68px}
+  .draggable.dragging{transform:translateX(-50%) scale(1.06);z-index:10}
   .feedback{padding:12px}
   .fb{max-width:94%;border-radius:14px;padding:13px}
   .fb .big{font-size:39px}.fb h3{font-size:19px}.fb p{font-size:11px;line-height:1.35}
@@ -214,16 +222,18 @@ html, body { width:100%; overflow-x:hidden; }
   .draggable{width:52px;height:52px}.draggable img{width:49px;height:49px}
 }
 @media (max-height:680px) and (max-width:720px){
-  .header-art,.header-art img{max-height:calc(100svh * .17)}
+  .header-art,.header-art img{max-height:calc(100svh * .15)}
   .start{padding:6px 8px}
-  .clic-hero{height:min(20svh,130px)}
+  .clic-hero{height:min(19svh,120px)}
   .start h2{font-size:20px;margin:2px 0 4px}
   .start p{font-size:10.5px}
   .instruction{margin-top:5px;padding:6px 8px}
   .mission{padding:5px 6px}.progress{margin:4px 0 5px}
-  .evidence{padding:5px;gap:5px}.evidence-card{min-height:46px;padding:6px 7px}
+  .evidence{padding:5px;gap:5px}.evidence-card{min-height:48px;padding:6px 7px;font-size:10.7px}
   .challenge{padding:6px}
-  .targets{padding-bottom:49px;gap:4px}.target{padding:5px 3px}
+  .targets{padding-bottom:76px;gap:4px}.target{padding:5px 3px;min-height:59px}.target .lab{font-size:10.7px}.target .ico{font-size:21px}
+  .challenge:after{height:64px;left:6px;right:6px}
+  .draggable{width:66px;height:66px}.draggable img{width:62px;height:62px}
 }
 </style>
 
